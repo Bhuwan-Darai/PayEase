@@ -1,0 +1,22 @@
+{
+  "name": "payease",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd frontend && npm start\" \"cd backend && npm run server\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bhuwan-Darai/PayEase.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bhuwan-Darai/PayEase/issues"
+  },
+  "homepage": "https://github.com/Bhuwan-Darai/PayEase#readme",
+  "dependencies": {
+    "concurrently": "^8.2.1"
+  }
+}
