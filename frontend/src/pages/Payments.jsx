@@ -1,18 +1,23 @@
-import { Form, FormGroup, Button, Container } from "react-bootstrap";
+import { Form, Row, FormGroup, Button, Container, Col } from "react-bootstrap";
 import { useState } from "react";
 import Dropzone from "react-dropzone";
 import axios from "axios";
 import Swal from "sweetalert2";
-
+import Header from "../components/Header";
 const PaymentForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     address: "",
-    grade: "",
+    program: "",
+    batch: "",
+    semester: "",
     parentsName: "",
     photo: null,
+    email: "",
     amount: "",
     paymentDate: "",
+    guardianName: "",
+    guardianContact: "",
   });
 
   const [previewImage, setPreviewImage] = useState(null);
@@ -36,21 +41,34 @@ const PaymentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { name, address, grade, parentsName, amount, paymentDate, photo } =
-      formData;
+    const {
+      name,
+      address,
+      program,
+      batch,
+      semester,
+      parentsName,
+      email,
+      amount,
+      paymentDate,
+      photo,
+      guardianName,
+      guardianContact,
+    } = formData;
 
     const formDataToUpload = new FormData();
     formDataToUpload.append("name", name);
     formDataToUpload.append("address", address);
-    formDataToUpload.append("grade", grade);
+    formDataToUpload.append("program", program);
+    formDataToUpload.append("batch", batch);
+    formDataToUpload.append("semester", semester);
     formDataToUpload.append("parentsName", parentsName);
+    formDataToUpload.append("email", email);
     formDataToUpload.append("amount", amount);
     formDataToUpload.append("paymentDate", paymentDate);
     formDataToUpload.append("photo", photo);
-
-    // if (photo) {
-    //   formDataToUpload.append("photo", photo, photo.name);
-    // }
+    formDataToUpload.append("guardianName", guardianName);
+    formDataToUpload.append("guardianContact", guardianContact);
 
     try {
       const response = await axios.post("/payments", formDataToUpload);
@@ -68,11 +86,16 @@ const PaymentForm = () => {
       setFormData({
         name: "",
         address: "",
-        grade: "",
+        program: "",
+        batch: "",
+        semester: "",
         parentsName: "",
         photo: null,
+        email: "",
         amount: "",
         paymentDate: "",
+        guardianName: "",
+        guardianContact: "",
       });
       setPreviewImage(null);
     } catch (error) {
@@ -86,45 +109,71 @@ const PaymentForm = () => {
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center  ">
-      <Form className="w-5" onSubmit={handleSubmit}>
-        <FormGroup>
-          <h2>Payment Section</h2> <Form.Label>Name</Form.Label>{" "}
-          <Form.Control
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Form.Label>Address</Form.Label>
-          <Form.Control
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Form.Label>Grade</Form.Label>
-          <Form.Control
-            type="text"
-            name="grade"
-            value={formData.grade}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Form.Label>Parents' Name</Form.Label>
-          <Form.Control
-            type="text"
-            name="parentsName"
-            value={formData.parentsName}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
+    <Container className="  ">
+      <Header />
+      <Form onSubmit={handleSubmit} className="mt-4">
+        <Row>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Address</Form.Label>
+            <Form.Control
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Row>
+        <Row>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Program</Form.Label>
+            <Form.Control
+              type="text"
+              name="program"
+              value={formData.program}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Batch No.</Form.Label>
+            <Form.Control
+              type="text"
+              name="batch"
+              value={formData.batch}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Row>
+        <Row>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Semester</Form.Label>
+            <Form.Control
+              type="text"
+              name="semester"
+              value={formData.semester}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Parents' Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="parentsName"
+              value={formData.parentsName}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Row>
+
+        <FormGroup as={Col} md="6">
           <Form.Label>Photo</Form.Label>
           <Dropzone onDrop={handleDrop}>
             {({ getRootProps, getInputProps }) => (
@@ -145,26 +194,60 @@ const PaymentForm = () => {
             )}
           </Dropzone>
         </FormGroup>
-        <FormGroup>
-          <Form.Label>Amount</Form.Label>
-          <Form.Control
-            type="number"
-            name="amount"
-            value={formData.amount}
-            onChange={handleChange}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Form.Label>Payment Date</Form.Label>
-          <Form.Control
-            type="date"
-            name="paymentDate"
-            value={formData.paymentDate}
-            onChange={handleChange}
-          />
-        </FormGroup>
-
-        <Button type="submit">Submit</Button>
+        <Row>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Row>
+        <Row>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Amount</Form.Label>
+            <Form.Control
+              type="number"
+              name="amount"
+              value={formData.amount}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Payment Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="paymentDate"
+              value={formData.paymentDate}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Row>
+        <Row>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Guardian Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="guardianName"
+              value={formData.guardianName}
+              onChange={handleChange}
+            />
+          </FormGroup>
+          <FormGroup as={Col} md="6">
+            <Form.Label>Guardian Contact</Form.Label>
+            <Form.Control
+              type="number"
+              name="guardianContact"
+              value={formData.guardianContact}
+              onChange={handleChange}
+            />
+          </FormGroup>
+        </Row>
+        <Button className="mt-3" type="submit">
+          Submit
+        </Button>
       </Form>
     </Container>
   );

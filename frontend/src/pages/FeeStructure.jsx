@@ -1,7 +1,11 @@
 import React from "react";
-
+import Header from "../components/Header";
 function FeeStructure() {
-  return <div>This is fee structure section</div>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 }
 
 export default FeeStructure;

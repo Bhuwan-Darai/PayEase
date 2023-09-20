@@ -1,5 +1,6 @@
 import React from "react";
-import admin from "../assets/admin.png";
+// import admin from "../assets/admin.png";
+import Header from "../components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
@@ -49,32 +50,7 @@ const Dashboard = () => {
     <>
       {/*..............top nav bars................*/}
       <div className="top-nav">
-        Good <span>Morning</span>
-      </div>
-      <div className="container-nav">
-        <div className="row">
-          <div className="profiletoptext col md-4">Dashboard</div>
-          <div className="col md-4 d-felx justify-content-center align-item-center">
-            <input
-              type="text"
-              placeholder="search here"
-              className="searchbox"
-            />
-          </div>
-          <div className="col md-4 offset-md-7">
-            <div className="imgrole">
-              <img
-                src={admin}
-                alt="admin"
-                style={{ width: "50px", height: "50px" }}
-              />
-              <div>
-                <h6>Bhuwan Darai</h6>
-                <p>Admin</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Header />
       </div>
       {/*...............Rest of the content...........*/}
       <div>

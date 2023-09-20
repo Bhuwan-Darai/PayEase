@@ -3,7 +3,9 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
 import * as BsIcons from "react-icons/bs";
+import * as FcIcons from "react-icons/fc";
 import { FaBars } from "react-icons/fa";
+
 import { NavLink } from "react-router-dom";
 import { useUserContext } from "../userRoleContext";
 import "../App.css";
@@ -44,6 +46,12 @@ const Sidebar = ({ children }) => {
       name: "Fee Structure",
       icon: <AiIcons.AiOutlineTable />,
       allowedRoles: ["Admin", "Accountant", "User"],
+    },
+    {
+      path: "/statements",
+      name: "Statements",
+      icon: <FcIcons.FcDocument />,
+      allowedRoles: ["Accountant"],
     },
 
     {

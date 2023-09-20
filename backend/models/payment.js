@@ -9,8 +9,7 @@ const paymentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  grade: {
+  semester: {
     type: Number,
     required: true,
   },
@@ -28,6 +27,18 @@ const paymentSchema = new mongoose.Schema({
   },
   paymentDate: {
     type: Date,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  guardianName: {
+    type: String,
+    required: true,
+  },
+  guardianContact: {
+    type: Number,
     required: true,
   },
 });

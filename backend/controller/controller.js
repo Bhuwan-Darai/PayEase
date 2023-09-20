@@ -12,7 +12,17 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   console.log(email, password);
   if (!email || !password) {
-    return res.json({ message: "All fields are required" });
+    return res.json({ message: "All fields are required", success: false });
+  }
+  if (email === admin.email && password === admin.password) {
+    generateToken(res, Admin._id);
+    return res.status(200).json({
+      _id: Admin._id,
+      name: Admin.name,
+      role: Admin.role,
+      message: "Admin login successfull",
+      success: true,
+    });
   }
 
   try {
@@ -25,17 +35,6 @@ const authUser = asyncHandler(async (req, res) => {
     //   (adminUser) =>
     //     adminUser.email === email && adminUser.password === password,
     // );
-
-    if (email === admin.email && password === admin.password) {
-      generateToken(res, Admin._id);
-      return res.status(200).json({
-        _id: Admin._id,
-        name: Admin.name,
-        role: Admin.role,
-        message: "Admin login successfull",
-        success: true,
-      });
-    }
 
     //  Check if the user is a user or accountant
     for (const UserTypes of userTypes) {
@@ -64,7 +63,7 @@ const authUser = asyncHandler(async (req, res) => {
       });
     }
   } catch (error) {
-    console.error(error);
+    // console.error(error);
     return res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -267,18 +266,31 @@ const deleteAccountant = async (req, res) => {
 // @route   Post  api/payment
 // @access  Private
 const payments = asyncHandler(async (req, res) => {
-  const { name, grade, address, parentsName, amount, paymentDate } = req.body;
+  const {
+    name,
+    semester,
+    address,
+    parentsName,
+    amount,
+    paymentDate,
+    email,
+    guardianName,
+    guardianContact,
+  } = req.body;
   const photo = req.file.filename;
   try {
     // creating new instance of payment model
     const newPayment = new payment({
       name,
       address,
-      grade,
+      semester,
       parentsName,
       amount,
       paymentDate,
+      email,
       photo,
+      guardianName,
+      guardianContact,
     });
 
     // saving the payment instance
@@ -290,6 +302,21 @@ const payments = asyncHandler(async (req, res) => {
     res
       .status(500)
       .json({ error: "Payment unsuccessful", details: error.message });
+  }
+});
+
+// @desc    Get payments
+// @route   GET /statements
+// @access  Private
+const getPayment = asyncHandler(async (req, res) => {
+  try {
+    const paid = await payment.find();
+    res.json(paid);
+  } catch (err) {
+    console.log(err);
+    res
+      .status(500)
+      .json({ error: "An error occured while retrieving payments " });
   }
 });
 
@@ -341,4 +368,5 @@ module.exports = {
   updateAccountant,
   deleteAccountant,
   payments,
+  getPayment,
 };

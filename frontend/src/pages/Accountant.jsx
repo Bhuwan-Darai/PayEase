@@ -42,7 +42,8 @@ function Accountant() {
     navigate("/CreateAccountant");
   };
 
-  const updatedAccountants = (accountant) => {
+  const updateAccountant = (accountant) => {
+    console.log(accountant);
     handleShow();
     setUpdatedAccountant(accountant);
   };
@@ -59,7 +60,7 @@ function Accountant() {
 
   const saveUpdatedAccountant = () => {
     axios
-      .put(`/updateAccountant/${updatedAccountants._id}`, updatedAccountant)
+      .put(`/updateAccountant/${updatedAccountant._id}`, updatedAccountant)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
 
@@ -126,11 +127,11 @@ function Accountant() {
               >
                 Girl Students
               </button>
-            </div>
+            </div>p
           </div>
         </div> */}
         <div style={{ marginTop: "0px" }}>
-          <h3 style={{ borderBottom: "3px solid black" }}>Student List</h3>
+          <h3 style={{ borderBottom: "3px solid black" }}>Accountant List</h3>
         </div>
         <div
           className="d-flex justify-content-end align-item-end"
@@ -144,7 +145,6 @@ function Accountant() {
           <thead>
             <tr className="text-center" style={{ backgroundColor: "blue" }}>
               <th>Name</th>
-              {/* <th>Gender</th> */}
               <th>Email</th>
               <th>Contact</th>
               <th>Actions</th>
@@ -160,14 +160,14 @@ function Accountant() {
                   <Button
                     variant="outline-success"
                     style={{ marginRight: "5px" }}
-                    onClick={() => updatedAccountant(Accountant)}
+                    onClick={() => updateAccountant(accountant)}
                   >
                     Edit
                   </Button>
 
                   <Button
                     variant="outline-danger"
-                    onClick={() => deleteAccountant(Accountant._id)}
+                    onClick={() => deleteAccountant(accountant._id)}
                   >
                     Delete
                   </Button>
@@ -190,19 +190,14 @@ function Accountant() {
                   value={updatedAccountant.name ? updatedAccountant.name : ""}
                   onChange={handleChange}
                 />
-                {/* <Form.Control
-                name="Gender"
-                placeholder="Gender"
-                type="text"
-                value={updatedAccountant.Gender ? updatedAccountant.Gender : ""}
-                onChange={handleChange}
-              /> */}
 
                 <Form.Control
-                  name="roll"
-                  placeholder="Roll number"
+                  name="contact"
+                  placeholder="Contact Number"
                   type="number"
-                  value={updatedAccountant.roll ? updatedAccountant.roll : ""}
+                  value={
+                    updatedAccountant.contact ? updatedAccountant.contact : ""
+                  }
                   onChange={handleChange}
                 />
 
@@ -214,26 +209,14 @@ function Accountant() {
                   onChange={handleChange}
                 />
 
-                <Form.Control
-                  name="guardianName"
-                  placeholder="Guardian Name"
+                {/* <Form.Control
+                  name="password"
+                  placeholder="Password"
                   value={
-                    updatedAccountant.guardianName
-                      ? updatedAccountant.guardianName
-                      : ""
+                    updatedAccountant.password ? updatedAccountant.password : ""
                   }
                   onChange={handleChange}
-                />
-
-                <Form.Control
-                  name="contact"
-                  placeholder="Contact"
-                  type="number"
-                  value={
-                    updatedAccountant.contact ? updatedAccountant.contact : ""
-                  }
-                  onChange={handleChange}
-                />
+                /> */}
               </Form.Group>
             </Form>
           </Modal.Body>

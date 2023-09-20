@@ -1,7 +1,11 @@
 import React from "react";
-
+import Header from "../components/Header";
 function Notification() {
-  return <div>This is notification section</div>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 }
 
 export default Notification;

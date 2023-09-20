@@ -41,37 +41,31 @@ function CreateAccountant() {
       .catch((err) => console.log(err));
 
     // after completion navigate to posts
-    navigate("/Students");
+    navigate("/accountant");
   };
 
   return (
     <div className="formContainer ">
-      <h2 className="heading">Create Student </h2>
+      <h2 className="heading">Create Accountant </h2>
       <Form className="studentForm">
         <Form.Group>
           <h1>Fill this form</h1>
 
-          <label>Student Name</label>
+          <label>Accountant Name</label>
           <Form.Control
             name="name"
-            placeholder="Name of Student"
+            placeholder="Name of Accountant"
             type="text"
             value={accountant.name}
             onChange={handleChange}
           />
-          {/* <Form.Control
-            name="Gender"
-            placeholder="Gender"
-            type="text"
-            value={accountant.Gender}
-            onChange={handleChange}
-          /> */}
-          <label>Roll Number</label>
+
+          <label>Contact</label>
           <Form.Control
-            name="roll"
-            placeholder="Roll number"
+            name="contact"
+            placeholder="contact"
             type="number"
-            value={accountant.roll}
+            value={accountant.contact}
             onChange={handleChange}
           />
           <label>Email ID</label>
@@ -82,26 +76,10 @@ function CreateAccountant() {
             value={accountant.email}
             onChange={handleChange}
           />
-          <label>Guardian Name</label>
-          <Form.Control
-            name="guardianName"
-            placeholder="Guardian Name"
-            value={accountant.guardianName}
-            onChange={handleChange}
-          />
-          <label>Contact</label>
-          <Form.Control
-            name="contact"
-            placeholder="Contact"
-            type="number"
-            value={accountant.contact}
-            onChange={handleChange}
-          />
           <label>Password</label>
           <Form.Control
             name="password"
             placeholder="Password"
-            type="password"
             value={accountant.password}
             onChange={handleChange}
           />
@@ -117,9 +95,9 @@ function CreateAccountant() {
             style={{ marginLeft: "1rem" }}
             className="submitBtn"
             variant="outline-dark"
-            onClick={() => navigate("/Students")}
+            onClick={() => navigate("/accountant")}
           >
-            Manage Student
+            Manage Accountant
           </Button>
         </Form.Group>
       </Form>

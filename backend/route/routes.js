@@ -15,6 +15,7 @@ const {
   updateAccountant,
   deleteAccountant,
   payments,
+  getPayment,
 } = require("../controller/controller");
 const uploadMidlleware = require("../middleware/uploadMiddleware");
 
@@ -38,5 +39,7 @@ router
   .get(protect, getAccountant)
   .put(protect, updateAccountant);
 router.delete("/deleteAccountant/:id", deleteAccountant);
+router.put("/updateAccountant/:id", updateAccountant);
 router.post("/payments", uploadMidlleware.single("photo"), payments);
+router.get("/payments", getPayment);
 module.exports = router;
